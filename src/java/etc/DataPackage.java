@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 public class DataPackage {
 
     //Hold the JSON document in string format
-    public String OUTPUT = "";
+    public String OUTPUT = "{";
     public ArrayList<DeviceBean> DEVICE_LIST;
 
     public void extract(String username) {
@@ -44,10 +44,14 @@ public class DataPackage {
                 BasicDBObject obj = (BasicDBObject) cursor.next();
                 BasicDBList productList = (BasicDBList) obj.get("productList");
                 BasicDBObject[] prodArr = productList.toArray(new BasicDBObject[0]);
+
                 for (BasicDBObject dbObj : prodArr) {
-                    OUTPUT += "Device no." + count + ":<br>" + dbObj.toString() + "<br><br>";
-                    count++;
-                    
+                    if (count++ != 1) {
+                        OUTPUT += ",";
+                    }
+
+                    OUTPUT += dbObj.toString();
+
                     //Creating an object for each device document
                     DeviceBean dev = new DeviceBean();
                     dev.setBarcode(dbObj.getString("barcode"));
@@ -60,22 +64,24 @@ public class DataPackage {
                     BasicDBList keywords = (BasicDBList) dbObj.get("keywords");
                     String[] keyArr = keywords.toArray(new String[0]);
                     String keysInString = "";
-                    for(String key : keyArr) {
+                    for (String key : keyArr) {
                         keysInString += key + " ";
                     }
                     dev.setKeywords(keysInString);
-                    
+
                     dev.setApplication(dbObj.getString("application"));
                     dev.setUpstream(dbObj.getString("upstream"));
                     dev.setDownstream(dbObj.getString("downstream"));
                     dev.setLastMaintainence(dbObj.getString("lastMaintainence"));
                     dev.setManual(dbObj.getString("manual"));
                     dev.setSld(dbObj.getString("sld"));
-                    
+
                     //Adding the device object to device list
                     DEVICE_LIST.add(dev);
                 }
             }
+
+            OUTPUT += "}";
 
             //Close connection to mongoDB server
             mongoClient.close();

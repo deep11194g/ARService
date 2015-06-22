@@ -2,9 +2,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <html>
-    <head>
-        <title>Layout</title>
-    </head>
     <body>
         <table>
             <tr>
@@ -14,7 +11,6 @@
                 <td><tiles:insert attribute="body" /></td>
             </tr>
         </table>
-        
         
     </body>
 </html>
