@@ -49,7 +49,6 @@ public class DataPackage {
                     if (count++ != 1) {
                         OUTPUT += ",";
                     }
-
                     OUTPUT += dbObj.toString();
 
                     //Creating an object for each device document
