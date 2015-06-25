@@ -6,16 +6,25 @@
 
 <form-validation>
 
-    <global>
-    </global>
-
     <formset>
-        <form name="LoginBean">
+        <form name="FormBean">
             <field property="username" depends="required">
-                    <arg key="loginForm.username"/>
+                <arg key="formBean.username"/>
             </field>
             <field property="password" depends="required">
-                    <arg key="loginForm.password"/>
+                <arg key="formBean.password"/>
+            </field>
+        </form>
+        
+        <form name="DeviceBean">
+            <field property="barcode" depends="required">
+                <arg key="deviceBean.barcode"/>
+            </field>
+            <field property="latitude" depends="required">
+                <arg key="deviceBean.latitude"/>
+            </field>
+            <field property="longitude" depends="required">
+                <arg key="deviceBean.longitude"/>
             </field>
         </form>
     </formset>

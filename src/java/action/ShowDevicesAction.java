@@ -17,8 +17,6 @@ import org.apache.struts.action.ActionMapping;
 
 public class ShowDevicesAction extends org.apache.struts.action.Action {
 
-    public String PATH;
-
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
@@ -41,7 +39,7 @@ public class ShowDevicesAction extends org.apache.struts.action.Action {
             show += "<h2>DEVICE NO." + count + ":<br></h2>";
             show += "Barcode : " + dev.getBarcode() + "<br>";
             show += "Last Maintainence : " + dev.getLastMaintainence() + "<br>";
-            show += "Name : " + dev.getName() + "<br>";
+            show += "Latitude : " + dev.getLatitude() + " Longitude : " + dev.getLongitude()+ "<br>";
             show += "Keywords : " + dev.getKeywords() + "<br>";
             show += "<br><br>";
             count++;
@@ -51,13 +49,13 @@ public class ShowDevicesAction extends org.apache.struts.action.Action {
         request.setAttribute("show", show);
 
         //create the JSON file to be sent to mobile application
-        PATH = this.getServlet().getServletContext().getRealPath("/") + "/DataFiles";
+        String path = this.getServlet().getServletContext().getRealPath("/") + "/DataFiles";
 
-        File uploadFolder = new File(PATH);
+        File uploadFolder = new File(path);
         if (!uploadFolder.exists()) {
             uploadFolder.mkdir();
         }
-        FileOutputStream fos = new FileOutputStream(PATH + "/" + "data.json");
+        FileOutputStream fos = new FileOutputStream(path + "/" + "data.json");
         fos.write(dp.OUTPUT.getBytes());
         fos.close();
 

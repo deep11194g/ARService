@@ -23,15 +23,14 @@ public class LoginAction extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
-        //clear values from form after evry request is sent
-        form.reset(mapping, request);
-        
         FormBean loginBean = (FormBean) form;
         boolean search = false;
-
+        
+        //Connection to mongoDB server
         MongoClient mongoClient = new MongoClient("localhost", 27017);
+        //Get the DB instance required => use db
         DB db = mongoClient.getDB("AugReality");
-
+        //Get the collection required; in this case the login collection => db.getCollection("coll_name")
         DBCollection coll = db.getCollection("login");
         DBCursor cursor = coll.find();
 

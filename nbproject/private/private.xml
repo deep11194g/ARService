@@ -4,13 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/sesa371237/Documents/NetBeansProjects/AugmentedRealityService/src/java/service/GenericResource.java</file>
-            <file>file:/C:/Users/sesa371237/Documents/NetBeansProjects/AugmentedRealityService/web/WEB-INF/struts-config.xml</file>
-            <file>file:/C:/Users/sesa371237/Documents/NetBeansProjects/AugmentedRealityService/web/WEB-INF/validation.xml</file>
             <file>file:/C:/Users/sesa371237/Documents/NetBeansProjects/AugmentedRealityService/src/java/etc/DataPackage.java</file>
-            <file>file:/C:/Users/sesa371237/Documents/NetBeansProjects/AugmentedRealityService/web/WEB-INF/tiles-defs.xml</file>
-            <file>file:/C:/Users/sesa371237/Documents/NetBeansProjects/AugmentedRealityService/web/WEB-INF/validator-rules.xml</file>
-            <file>file:/C:/Users/sesa371237/Documents/NetBeansProjects/AugmentedRealityService/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/sesa371237/Documents/NetBeansProjects/AugmentedRealityService/src/java/action/ShowDevicesAction.java</file>
+            <file>file:/C:/Users/sesa371237/Documents/NetBeansProjects/AugmentedRealityService/src/java/action/DeviceAddAction.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1,6 +1,3 @@
-/*
- *  Action to be performed while adding a device from addDevice.jsp
- */
 package action;
 
 import bean.DeviceBean;
@@ -12,28 +9,23 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-public class DeviceAddAction extends org.apache.struts.action.Action {
+public class EditAction extends org.apache.struts.action.Action {
 
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-
-        //receive the form data as an object of DeviceBean class; details entered at addDevice.jsp
+        
         DeviceBean device = (DeviceBean) form;
-
-        //retrieve username from session
+        
         HttpSession hs = request.getSession(true);
         String username = (String) hs.getAttribute("username");
-
-        //Call insert fucntion from DataPackage class
+        
         DataPackage dp = new DataPackage();
-        dp.insert(device, username);
-
-        String lastUpdateBarcode = device.getBarcode();
-        request.setAttribute("update_msg", "Device with barcode no." + lastUpdateBarcode + " has been entered");
-
-        //Return to the source page
+        dp.update(device, username);
+        
+        request.setAttribute("update_msg", "Device with barcode no. " + device.getBarcode() + "has been successfully updates");
+        
         return mapping.getInputForward();
     }
 }

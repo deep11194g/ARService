@@ -12,6 +12,7 @@
             <tr>
                 <td><a href="seeDevices.do">See present devices</a></td>
                 <td><a href="addDevice.jsp">Add a device</a></td>
+                <td><a href="edit.jsp">Edit</a></td>
                 <td><a href="logout.do">Logout</a></td>
             </tr>
         </table>
@@ -34,7 +35,6 @@
                 <tr><td>SLD Link</td>           <td><html:text name="DetailsBean" property="sld" value="" /></td></tr>
                 <tr><td><html:submit value="Submit" /></td></tr>
             </table>
-            
         </html:form>
         
     <br><br><b><font color="blue">${requestScope.update_msg}</font></b>    

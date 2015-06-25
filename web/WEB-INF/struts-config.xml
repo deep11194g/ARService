@@ -25,6 +25,7 @@
         <action path="/seeDevices" type="action.ShowDevicesAction">
             <forward name="devices" path="devices" />
         </action>
+        <action input="/edit.jsp" name="DeviceBean" path="/edit" scope="session" type="action.EditAction"/>
         <action input="/addDevice.jsp" name="DeviceBean" path="/add" scope="session" type="action.DeviceAddAction"/>    
     </action-mappings>
     

@@ -22,9 +22,6 @@ public class RegisterAction extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
-        //clear values from form after evry request is sent
-        form.reset(mapping, request);
-
         //get username and password from FormBean entered at index.jsp
         FormBean loginBean = (FormBean) form;
         String username = loginBean.getUsername(), password = loginBean.getPassword();

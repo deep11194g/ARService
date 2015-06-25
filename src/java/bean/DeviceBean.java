@@ -31,8 +31,8 @@ public class DeviceBean extends org.apache.struts.action.ActionForm {
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = new ActionErrors();
         //validate name
-        if (getName() == null || getName().length() < 1) {
-            errors.add("name", new ActionMessage("error.name.required"));
+        if (getBarcode() == null || getBarcode().length() < 1) {
+            errors.add("barcode", new ActionMessage("error.barcode.required"));
         }
         
         //validate latitude
@@ -45,10 +45,6 @@ public class DeviceBean extends org.apache.struts.action.ActionForm {
             errors.add("longitude", new ActionMessage("error.longitude.required"));
         }
         
-        //validate manual link
-        if (getManual() == null || getManual().length() < 1) {
-            errors.add("manual", new ActionMessage("error.manual.required"));
-        }
         return errors;
     }
     
