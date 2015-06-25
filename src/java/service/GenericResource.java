@@ -43,8 +43,6 @@ public class GenericResource {
         out.write(dp.OUTPUT);
         out.close();
 
-        System.out.println("SEnding");
-
         //create download response
         Response.ResponseBuilder response = Response.ok((Object) file);
         response.header("Content-Disposition", "attachment; filename=\"data.json\"");
@@ -69,8 +67,6 @@ public class GenericResource {
             @FormParam("lastMaintainence") String lastMaintainence,
             @FormParam("manual") String manual,
             @FormParam("sld") String sld) {
-
-        System.out.println("Received : " + username + " " + barcode + " " + lastMaintainence);
 
         DeviceBean device = new DeviceBean();
 

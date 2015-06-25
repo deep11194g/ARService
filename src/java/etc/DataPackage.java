@@ -168,6 +168,7 @@ public class DataPackage {
             //Get the collection required; in this case the devices collection => db.getCollection("coll_name")
             DBCollection coll = db.getCollection("devices");
 
+            //updated location document
             BasicDBObject updateDoc = new BasicDBObject("latitude", latitude);
             updateDoc.append("longitude", longitude);
 
@@ -176,6 +177,7 @@ public class DataPackage {
             updateQuery.append("productList.barcode", barcode);
             coll.update(updateQuery, updateCommand);
 
+            //CLose MongoDB connection
             mongoClient.close();
 
         } catch (UnknownHostException ex) {
