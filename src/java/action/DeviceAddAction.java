@@ -19,10 +19,10 @@ public class DeviceAddAction extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
 
-        //receive the form data as an object of DeviceBean class; details entered at addDevice.jsp
+        //Receive the form data as an object of DeviceBean class; details entered at addDevice.jsp
         DeviceBean device = (DeviceBean) form;
 
-        //retrieve username from session
+        //Retrieve username from session
         HttpSession hs = request.getSession(true);
         String username = (String) hs.getAttribute("username");
 

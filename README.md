@@ -41,6 +41,6 @@ _WAR file present in dist folder(for deployment)_
 	
 #####About Struts framework:
 * Struts is an MVC framework of Java
-* Link to tutorial: 
+* These links will give a clear idea of a basic Struts app: 
 	* https://netbeans.org/kb/docs/web/quickstart-webapps-struts.html
 	* http://www.quickprogrammingtips.com/struts2/struts-2-netbeans-tutorial.html

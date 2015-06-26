@@ -1,3 +1,8 @@
+/*
+ *  Model class to establish connection with MongoDB
+ *  Change url and port number as per requirement
+ */
+
 package etc;
 
 import com.mongodb.DB;
