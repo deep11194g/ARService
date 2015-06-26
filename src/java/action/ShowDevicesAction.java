@@ -5,8 +5,6 @@ package action;
 
 import bean.DeviceBean;
 import etc.DataPackage;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.Iterator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,28 +34,17 @@ public class ShowDevicesAction extends org.apache.struts.action.Action {
         int count = 1;
         while (itor.hasNext()) {
             DeviceBean dev = (DeviceBean) itor.next();
-            show += "<h2>DEVICE NO." + count + ":<br></h2>";
+            show += "<h2>DEVICE NO." + count++ + ":<br></h2>";
             show += "Barcode : " + dev.getBarcode() + "<br>";
             show += "Last Maintainence : " + dev.getLastMaintainence() + "<br>";
             show += "Latitude : " + dev.getLatitude() + " Longitude : " + dev.getLongitude()+ "<br>";
             show += "Keywords : " + dev.getKeywords() + "<br>";
             show += "<br><br>";
-            count++;
+            
         }
 
         request.setAttribute("username", username);
         request.setAttribute("show", show);
-
-        //create the JSON file to be sent to mobile application
-        String path = this.getServlet().getServletContext().getRealPath("/") + "/DataFiles";
-
-        File uploadFolder = new File(path);
-        if (!uploadFolder.exists()) {
-            uploadFolder.mkdir();
-        }
-        FileOutputStream fos = new FileOutputStream(path + "/" + "data.json");
-        fos.write(dp.OUTPUT.getBytes());
-        fos.close();
 
         //Return back to the page from where the request has been originated
         return mapping.findForward("devices");

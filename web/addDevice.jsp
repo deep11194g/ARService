@@ -21,18 +21,18 @@
         
         <html:form action="/add">
             <table>
-                <tr><td>Barcode</td>            <td><html:text name="DetailsBean" property="barcode" value="" /></td></tr>
-                <tr><td>Name</td>               <td><html:text name="DetailsBean" property="name" value="" /></td></tr>
+                <tr><td>Barcode</td>            <td><html:text name="DeviceBean" property="barcode" value="" /></td></tr>
+                <tr><td>Name</td>               <td><html:text name="DeviceBean" property="name" value="" /></td></tr>
                 <tr><td>Location:</td></tr>
-                <tr><td>Latitude</td>           <td><html:text name="DetailsBean" property="latitude" value="" /></td></tr>
-                <tr><td>Longitude</td>          <td><html:text name="DetailsBean" property="longitude" value="" /></td></tr>
-                <tr><td>Keywords</td>           <td><html:text name="DetailsBean" property="keywords" value="" /></td></tr>
-                <tr><td>Application</td>        <td><html:text name="DetailsBean" property="application" value="" /></td></tr>
-                <tr><td>Upstream</td>           <td><html:text name="DetailsBean" property="upstream" value="" /></td></tr>
-                <tr><td>Downstream</td>         <td><html:text name="DetailsBean" property="downstream" value="" /></td></tr>
-                <tr><td>Last Maintainence</td>  <td><html:text name="DetailsBean" property="lastMaintainence" value="" /></td></tr>
-                <tr><td>Manual Link</td>        <td><html:text name="DetailsBean" property="manual" value="" /></td></tr>
-                <tr><td>SLD Link</td>           <td><html:text name="DetailsBean" property="sld" value="" /></td></tr>
+                <tr><td>Latitude</td>           <td><html:text name="DeviceBean" property="latitude" value="" /></td></tr>
+                <tr><td>Longitude</td>          <td><html:text name="DeviceBean" property="longitude" value="" /></td></tr>
+                <tr><td>Keywords</td>           <td><html:text name="DeviceBean" property="keywords" value="" /></td></tr>
+                <tr><td>Application</td>        <td><html:text name="DeviceBean" property="application" value="" /></td></tr>
+                <tr><td>Upstream</td>           <td><html:text name="DeviceBean" property="upstream" value="" /></td></tr>
+                <tr><td>Downstream</td>         <td><html:text name="DeviceBean" property="downstream" value="" /></td></tr>
+                <tr><td>Last Maintainence</td>  <td><html:text name="DeviceBean" property="lastMaintainence" value="" /></td></tr>
+                <tr><td>Manual Link</td>        <td><html:text name="DeviceBean" property="manual" value="" /></td></tr>
+                <tr><td>SLD Link</td>           <td><html:text name="DeviceBean" property="sld" value="" /></td></tr>
                 <tr><td><html:submit value="Submit" /></td></tr>
             </table>
         </html:form>

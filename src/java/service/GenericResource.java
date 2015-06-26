@@ -109,7 +109,7 @@ public class GenericResource {
         dp.update(device, username);
 
         //return a response with status
-        return Response.status(200).entity("Location of device with barcode no." + barcode + "has been updated").build();
+        return Response.status(200).entity("Location of device with barcode no." + barcode + " has been updated").build();
 
     }
 }

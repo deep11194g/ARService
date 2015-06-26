@@ -7,7 +7,7 @@
     </head>
     
     <body>
+        <!-- Receiving username variable from LoginAction.java -->
         <h1>Hello ${requestScope.username} </h1>
-     
     </body>
 </html>

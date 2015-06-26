@@ -11,7 +11,8 @@
         <h1>Devices of ${requestScope.username}</h1>
         
         <br><br>
-        
+        <!-- Receiving show variable from ShowDeviceAction.java -->
+        <!-- show holds details of all devices -->
         ${requestScope.show}
         <br><br>
     </body>

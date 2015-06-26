@@ -7,11 +7,8 @@ package etc;
 import bean.DeviceBean;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
-import com.mongodb.MongoClient;
-import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,72 +28,65 @@ public class DataPackage {
     public String OUTPUT = "{";
     public ArrayList<DeviceBean> DEVICE_LIST;
 
+    public DBConnect DBC = new DBConnect("localhost", 27017);
+
     public void extract(String username) {
-        try {
-            //Connection to mongoDB server
-            MongoClient mongoClient = new MongoClient("localhost", 27017);
-            //Get the DB instance required
-            DB db = mongoClient.getDB("AugReality");
-            //Get the collection required; in this case the devices collection
-            DBCollection coll = db.getCollection("devices");
 
-            //search for the document with the given username; db.devices.find("username" : concerned_username)
-            BasicDBObject searchQuery = new BasicDBObject("username", username);
-            DBCursor cursor = coll.find(searchQuery);
+        //Get the collection required; in this case the devices collection
+        DBCollection coll = DBC.db.getCollection("devices");
 
-            //list of device details for the present username
-            DEVICE_LIST = new ArrayList<DeviceBean>();
+        //search for the document with the given username; db.devices.find("username" : concerned_username)
+        BasicDBObject searchQuery = new BasicDBObject("username", username);
+        DBCursor cursor = coll.find(searchQuery);
 
-            //populating device detials
-            while (cursor.hasNext()) {
-                int count = 1;
-                BasicDBObject obj = (BasicDBObject) cursor.next();
-                BasicDBList productList = (BasicDBList) obj.get("productList");
-                BasicDBObject[] prodArr = productList.toArray(new BasicDBObject[0]);
+        //list of device details for the present username
+        DEVICE_LIST = new ArrayList<DeviceBean>();
 
-                for (BasicDBObject dbObj : prodArr) {
-                    if (count++ != 1) {
-                        OUTPUT += ",";
-                    }
-                    OUTPUT += dbObj.toString();
+        //populating device detials
+        while (cursor.hasNext()) {
+            int count = 1;
+            BasicDBObject obj = (BasicDBObject) cursor.next();
+            BasicDBList productList = (BasicDBList) obj.get("productList");
+            BasicDBObject[] prodArr = productList.toArray(new BasicDBObject[0]);
 
-                    //Creating an object for each device document
-                    DeviceBean dev = new DeviceBean();
-                    dev.setBarcode(dbObj.getString("barcode"));
-                    dev.setName(dbObj.getString("name"));
-
-                    BasicDBObject loc = (BasicDBObject) dbObj.get("location");
-                    dev.setLongitude(loc.getString("longitude"));
-                    dev.setLatitude(loc.getString("latitude"));
-
-                    BasicDBList keywords = (BasicDBList) dbObj.get("keywords");
-                    String[] keyArr = keywords.toArray(new String[0]);
-                    String keysInString = "";
-                    for (String key : keyArr) {
-                        keysInString += key + " ";
-                    }
-                    dev.setKeywords(keysInString);
-
-                    dev.setApplication(dbObj.getString("application"));
-                    dev.setUpstream(dbObj.getString("upstream"));
-                    dev.setDownstream(dbObj.getString("downstream"));
-                    dev.setLastMaintainence(dbObj.getString("lastMaintainence"));
-                    dev.setManual(dbObj.getString("manual"));
-                    dev.setSld(dbObj.getString("sld"));
-
-                    //Adding the device object to device list
-                    DEVICE_LIST.add(dev);
+            for (BasicDBObject dbObj : prodArr) {
+                if (count++ != 1) {
+                    OUTPUT += ",";
                 }
+                OUTPUT += dbObj.toString();
+
+                //Creating an object for each device document
+                DeviceBean dev = new DeviceBean();
+                dev.setBarcode(dbObj.getString("barcode"));
+                dev.setName(dbObj.getString("name"));
+
+                BasicDBObject loc = (BasicDBObject) dbObj.get("location");
+                dev.setLongitude(loc.getString("longitude"));
+                dev.setLatitude(loc.getString("latitude"));
+
+                BasicDBList keywords = (BasicDBList) dbObj.get("keywords");
+                String[] keyArr = keywords.toArray(new String[0]);
+                String keysInString = "";
+                for (String key : keyArr) {
+                    keysInString += key + " ";
+                }
+                dev.setKeywords(keysInString);
+
+                dev.setApplication(dbObj.getString("application"));
+                dev.setUpstream(dbObj.getString("upstream"));
+                dev.setDownstream(dbObj.getString("downstream"));
+                dev.setLastMaintainence(dbObj.getString("lastMaintainence"));
+                dev.setManual(dbObj.getString("manual"));
+                dev.setSld(dbObj.getString("sld"));
+
+                //Adding the device object to device list
+                DEVICE_LIST.add(dev);
             }
-
-            OUTPUT += "}";
-
-            //Close connection to mongoDB server
-            mongoClient.close();
-
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(DataPackage.class.getName()).log(Level.SEVERE, null, ex);
         }
+        OUTPUT += "}";
+
+        //Close connection to mongoDB server
+        DBC.close();
     }
 
     /*
@@ -108,12 +98,8 @@ public class DataPackage {
 
     public void insert(DeviceBean device, String username) {
         try {
-            //Connection to mongoDB server
-            MongoClient mongoClient = new MongoClient("localhost", 27017);
-            //Get the DB instance required => use db
-            DB db = mongoClient.getDB("AugReality");
             //Get the collection required; in this case the devices collection => db.getCollection("coll_name")
-            DBCollection coll = db.getCollection("devices");
+            DBCollection coll = DBC.db.getCollection("devices");
 
             //Create a document and appened all device details to it
             BasicDBObject doc = new BasicDBObject("barcode", device.getBarcode());
@@ -142,10 +128,7 @@ public class DataPackage {
             BasicDBObject updateQuery = new BasicDBObject("username", username);
             coll.update(updateQuery, updateCommand, true, true);
 
-            mongoClient.close();
-
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(DataPackage.class.getName()).log(Level.SEVERE, null, ex);
+            DBC.close();
         } catch (ParseException ex) {
             Logger.getLogger(DataPackage.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -155,33 +138,24 @@ public class DataPackage {
      *  Edit value of some given fields of a device
      */
     public void update(DeviceBean device, String username) {
-        try {
-            
-            String latitude = device.getLatitude();
-            String longitude = device.getLongitude();
-            String barcode = device.getBarcode();
-            
-            //Connection to mongoDB server
-            MongoClient mongoClient = new MongoClient("localhost", 27017);
-            //Get the DB instance required => use db
-            DB db = mongoClient.getDB("AugReality");
-            //Get the collection required; in this case the devices collection => db.getCollection("coll_name")
-            DBCollection coll = db.getCollection("devices");
 
-            //updated location document
-            BasicDBObject updateDoc = new BasicDBObject("latitude", latitude);
-            updateDoc.append("longitude", longitude);
+        String latitude = device.getLatitude();
+        String longitude = device.getLongitude();
+        String barcode = device.getBarcode();
 
-            BasicDBObject updateCommand = new BasicDBObject("$set", new BasicDBObject("productList.$.location", updateDoc));
-            BasicDBObject updateQuery = new BasicDBObject("username", username);
-            updateQuery.append("productList.barcode", barcode);
-            coll.update(updateQuery, updateCommand);
+        //Get the collection required; in this case the devices collection => db.getCollection("coll_name")
+        DBCollection coll = DBC.db.getCollection("devices");
 
-            //CLose MongoDB connection
-            mongoClient.close();
+        //updated location document
+        BasicDBObject updateDoc = new BasicDBObject("latitude", latitude);
+        updateDoc.append("longitude", longitude);
 
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(DataPackage.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        BasicDBObject updateCommand = new BasicDBObject("$set", new BasicDBObject("productList.$.location", updateDoc));
+        BasicDBObject updateQuery = new BasicDBObject("username", username);
+        updateQuery.append("productList.barcode", barcode);
+        coll.update(updateQuery, updateCommand);
+
+        //Close MongoDB connection
+        DBC.close();
     }
 }

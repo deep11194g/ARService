@@ -4,16 +4,12 @@
           "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
           "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
 
-
 <struts-config>
     <form-beans>
         <form-bean name="DeviceBean" type="bean.DeviceBean"/>
         <form-bean name="FormBean" type="bean.FormBean"/> 
     </form-beans>
     
-    <global-exceptions>    
-    </global-exceptions>
-
     <action-mappings>
         <action input="/index.jsp" name="FormBean" path="/login" scope="session" type="action.LoginAction">
             <forward name="home" path="main_home" />

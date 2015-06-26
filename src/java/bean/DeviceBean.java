@@ -66,7 +66,7 @@ public class DeviceBean extends org.apache.struts.action.ActionForm {
         this.name = name;
     }
 
-    ////setter and getter functions for latitude
+    //setter and getter functions for latitude
     public String getLatitude() {
         return latitude;
     }

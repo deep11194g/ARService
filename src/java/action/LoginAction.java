@@ -5,10 +5,9 @@ package action;
 
 import bean.FormBean;
 import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
-import com.mongodb.MongoClient;
+import etc.DBConnect;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,20 +17,20 @@ import org.apache.struts.action.ActionMapping;
 
 public class LoginAction extends org.apache.struts.action.Action {
 
+    public DBConnect DBC = new DBConnect("localhost", 27017);
+
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
         FormBean loginBean = (FormBean) form;
+        
         boolean search = false;
         
-        //Connection to mongoDB server
-        MongoClient mongoClient = new MongoClient("localhost", 27017);
-        //Get the DB instance required => use db
-        DB db = mongoClient.getDB("AugReality");
         //Get the collection required; in this case the login collection => db.getCollection("coll_name")
-        DBCollection coll = db.getCollection("login");
+        DBCollection coll = DBC.db.getCollection("login");
+        
         DBCursor cursor = coll.find();
 
         while (cursor.hasNext()) {
@@ -42,6 +41,10 @@ public class LoginAction extends org.apache.struts.action.Action {
                 break;
             }
         }
+        
+        //Close DB connection
+        DBC.close();
+        
         //if username and password found in DB, create session and redirect to home
         if (search) {
             request.setAttribute("username", loginBean.getUsername());
@@ -54,5 +57,6 @@ public class LoginAction extends org.apache.struts.action.Action {
             request.setAttribute("login_failed", "Username of password mismatch. Re-enter");
             return mapping.getInputForward();
         }
+        
     }
 }
