@@ -43,7 +43,7 @@ public class LoginAction extends org.apache.struts.action.Action {
         }
         
         //Close DB connection
-        DBC.close();
+        //DBC.close();
         
         //if username and password found in DB, create session and redirect to home
         if (search) {
